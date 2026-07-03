@@ -1,3 +1,12 @@
-<main class="welcome">
-  <h1>Welcome to <span>Dhairya's</span> World</h1>
+<main class="welcome" (mousemove)="onMouseMove($event)">
+  <div class="aurora"></div>
+  <div class="grain"></div>
+
+  <div class="tilt-wrap" [style.transform]="wrapTransform()">
+    <h1>
+      <span #beforeText>Welcome to</span>
+      <span #nameText class="highlight">Dhairya's</span>
+      <span #afterText>World</span>
+    </h1>
+  </div>
 </main>

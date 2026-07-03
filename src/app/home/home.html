@@ -1,14 +1,20 @@
-<main class="main">
-  <div
-    class="stack"
-    [class.zoom]="zooming()"
-    role="button"
-    tabindex="0"
-    (click)="enter()"
-    (keydown.enter)="enter()"
-    (keydown.space)="enter()"
-  >
-    <h1 class="en">{{ title() }}</h1>
-    <h1 class="ne">धैर्य</h1>
+<main class="main" (mousemove)="onMouseMove($event)">
+  <div class="aurora"></div>
+  <div class="grain"></div>
+
+  <div class="tilt-wrap" [style.transform]="wrapTransform()">
+    <div
+      class="stack"
+      [class.zoom]="zooming()"
+      role="button"
+      tabindex="0"
+      (click)="enter()"
+      (keydown.enter)="enter()"
+      (keydown.space)="enter()"
+    >
+      <h1 class="en" #enText>Dhairya</h1>
+      <h1 class="ne" #neText>धैर्य</h1>
+      <p class="hint" [class.show]="hintVisible()">click to enter</p>
+    </div>
   </div>
 </main>

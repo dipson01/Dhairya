@@ -1,11 +1,55 @@
 .main {
+  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #0d0d12;
-  perspective: 1000px;
+  background: #05050a;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+.aurora {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background:
+    radial-gradient(40% 35% at 20% 25%, rgba(124, 92, 255, 0.35), transparent 70%),
+    radial-gradient(35% 30% at 80% 20%, rgba(255, 92, 173, 0.28), transparent 70%),
+    radial-gradient(45% 40% at 50% 85%, rgba(92, 200, 255, 0.22), transparent 70%);
+  filter: blur(40px);
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, 2%, 0) scale(1);
+  }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+.tilt-wrap {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
 }
 
 .stack {
@@ -14,17 +58,17 @@
   align-items: center;
   gap: 1rem;
   cursor: pointer;
-  transform: rotateX(12deg) rotateY(-14deg) scale(1);
   transform-style: preserve-3d;
+  transform: scale(1);
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease;
 }
 
 .stack:hover {
-  transform: rotateX(12deg) rotateY(-14deg) scale(1.04);
+  transform: scale(1.04);
 }
 
 .stack.zoom {
-  transform: rotateX(0deg) rotateY(0deg) scale(6);
+  transform: scale(6);
   opacity: 0;
 }
 
@@ -32,7 +76,7 @@ h1 {
   margin: 0;
   font-weight: 800;
   letter-spacing: 0.02em;
-  color: #f2f2f5;
+  color: #f5f5f8;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   text-shadow:
     1px 1px 0 #d8d8dd,
@@ -49,9 +93,36 @@ h1 {
 
 h1.en {
   font-size: clamp(3.5rem, 12vw, 10rem);
+  min-width: 7ch;
+  text-align: center;
 }
 
 h1.ne {
   font-size: clamp(3rem, 10vw, 8.5rem);
   font-family: "Noto Sans Devanagari", "Kalimati", -apple-system, sans-serif;
+  min-width: 4ch;
+  text-align: center;
+}
+
+.hint {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 248, 0.5);
+  opacity: 0;
+}
+
+.hint.show {
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.75;
+  }
 }
